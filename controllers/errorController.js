@@ -92,10 +92,8 @@ module.exports = (err, req, res, next) => {
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') {
-    // console.log('========Dev==========', err);
     sendErrorDev(err, req, res);
   } else if (process.env.NODE_ENV === 'production') {
-    // console.log('========Prod==========', err);
     // FIXME: not working, but now it may be work for adding *second line code
     // let error = { ...err };
     // *error.message=err.message

@@ -32,9 +32,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
           product_data: {
             name: `${tour.name} Tour`,
             description: tour.summary,
-            // images: [
-            //   'https://images.pexels.com/photos/1371360/pexels-photo-1371360.jpeg?auto=compress&cs=tinysrgb&w=600',
-            // ],
             images: [
               `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`,
             ],
@@ -44,6 +41,10 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       },
     ],
   });
+
+  // console.log(
+  //   `${req.protocol}://${req.get('host')}/img/tours/${tour?.imageCover}`,
+  // );
 
   // 3) Create session as response
   res.status(200).json({

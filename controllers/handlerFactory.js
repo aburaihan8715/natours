@@ -70,6 +70,7 @@ exports.getAll = (Model) =>
 
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
+      .search()
       .sort()
       .limitFields()
       .paginate();

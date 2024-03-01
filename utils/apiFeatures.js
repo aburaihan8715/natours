@@ -10,7 +10,7 @@ class APIFeatures {
   filter() {
     // 1A) Filtering
     const queryObj = { ...this.queryString };
-    const excludeFields = ['page', 'sort', 'limit', 'fields'];
+    const excludeFields = ['page', 'sort', 'limit', 'fields', 'search'];
     excludeFields.forEach((el) => delete queryObj[el]);
 
     // 1B) Advanced filtering
@@ -18,6 +18,25 @@ class APIFeatures {
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
     this.query = this.query.find(JSON.parse(queryStr));
+    return this;
+  }
+
+  // NOTE: have to add search features from anisul islam video
+  search() {
+    // 2) searching
+    if (this.queryString.search) {
+      const search = this.queryString.search;
+      const searchRegexp = new RegExp(`.*${search}.*`, 'i');
+
+      const queryBySearch = {
+        $or: [
+          { name: { $regex: searchRegexp } },
+          { email: { $regex: searchRegexp } },
+          { phone: { $regex: searchRegexp } },
+        ],
+      };
+      this.query = this.query.find(queryBySearch);
+    }
     return this;
   }
 
@@ -42,9 +61,6 @@ class APIFeatures {
     }
     return this;
   }
-
-  // NOTE: have to add search features from anisul islam video
-  // search()
 
   paginate() {
     // 3) pagination

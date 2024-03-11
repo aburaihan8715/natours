@@ -63,6 +63,7 @@ class APIFeatures {
   }
 
   paginate() {
+    // NOTE: we receive count in client side from response results
     // 3) pagination
     const page = this.queryString.page * 1 || 1;
     const limit = this.queryString.limit * 1 || 100;

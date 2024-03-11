@@ -1,11 +1,11 @@
 /* eslint-disable arrow-body-style */
 
-module.exports = (fn) => {
+module.exports = (asyncCb) => {
   return (req, res, next) => {
-    fn(req, res, next).catch((err) => {
+    asyncCb(req, res, next).catch((err) => {
       // console.log('========from catchAsync==========', err);
       next(err);
     });
-    // fn(req, res, next).catch(next);
+    // asyncCb(req, res, next).catch(next);
   };
 };

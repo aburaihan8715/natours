@@ -70,9 +70,9 @@ exports.getAll = (Model) =>
 
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
-      .search()
       .sort()
       .limitFields()
+      .search('name', 'role') // we can add any field
       .paginate();
     // const doc = await features.query.explain();
     const doc = await features.query;

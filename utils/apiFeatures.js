@@ -21,25 +21,6 @@ class APIFeatures {
     return this;
   }
 
-  // NOTE: have to add search features from anisul islam video
-  search() {
-    // 2) searching
-    if (this.queryString.search) {
-      const search = this.queryString.search;
-      const searchRegexp = new RegExp(`.*${search}.*`, 'i');
-
-      const queryBySearch = {
-        $or: [
-          { name: { $regex: searchRegexp } },
-          { email: { $regex: searchRegexp } },
-          { phone: { $regex: searchRegexp } },
-        ],
-      };
-      this.query = this.query.find(queryBySearch);
-    }
-    return this;
-  }
-
   sort() {
     // 2) sorting
     if (this.queryString.sort) {
@@ -61,6 +42,42 @@ class APIFeatures {
     }
     return this;
   }
+
+  // NOTE: have to add search features from anisul islam video
+
+  search(...searchFields) {
+    // 2) searching
+    if (this.queryString.search) {
+      const search = this.queryString.search;
+      const searchRegexp = new RegExp(`.*${search}.*`, 'i');
+
+      const queryBySearch = {
+        $or: searchFields.map((field) => ({
+          [field]: { $regex: searchRegexp },
+        })),
+      };
+      this.query = this.query.find(queryBySearch);
+    }
+    return this;
+  }
+
+  // search(...searchFields) {
+  //   // 2) searching
+  //   if (this.queryString.search) {
+  //     const search = this.queryString.search;
+  //     const searchRegexp = new RegExp(`.*${search}.*`, 'i');
+
+  //     const queryBySearch = {
+  //       $or: [
+  //         { name: { $regex: searchRegexp } },
+  //         { email: { $regex: searchRegexp } },
+  //         { phone: { $regex: searchRegexp } },
+  //       ],
+  //     };
+  //     this.query = this.query.find(queryBySearch);
+  //   }
+  //   return this;
+  // }
 
   paginate() {
     // NOTE: we receive count in client side from response results

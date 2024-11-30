@@ -61,7 +61,7 @@ class APIFeatures {
     return this;
   }
 
-  // search(...searchFields) {
+  // search() {
   //   // 2) searching
   //   if (this.queryString.search) {
   //     const search = this.queryString.search;

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
@@ -76,7 +75,7 @@ userSchema.pre('save', async function (next) {
 
 // manipulate passwordChangedAt
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password' || this.isNew)) return next();
+  if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000;
   next();

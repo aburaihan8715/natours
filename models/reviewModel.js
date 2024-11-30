@@ -63,6 +63,7 @@ reviewSchema.pre(/^find/, function (next) {
 // INSTANCE METHODS
 
 // STATICS METHODS
+// in statics methods this refers current model
 reviewSchema.statics.calcAverageRatings = async function (tourId) {
   const stats = await this.aggregate([
     {

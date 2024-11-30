@@ -23,7 +23,7 @@ router
     tourController.getMonthlyPlan,
   );
 
-// /tours-within?distance=233,center=34.124693, -118.113807&unit=mi
+// tours-within?distance=233,center=34.124693, -118.113807&unit=mi
 // tours-within/233/center/34.124693, -118.113807/unit/mi
 router
   .route('/tours-within/:distance/center/:latlng/unit/:unit')
